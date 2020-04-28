@@ -1,12 +1,28 @@
 import React from "react";
-import PostList from "./PostList";
+import UserCreate from "./UserCreate";
+import LanguageSelector from "./LanguageSelector";
+import LanguangeContext from "../contexts/LanguageContext";
+import ColourContext from "../contexts/ColourContext";
 
-const App = () => {
-	return (
-		<div className="ui container">
-			<PostList />
-		</div>
-	);
-};
+class App extends React.Component {
+	state = { language: "english" };
+
+	onLanguageChange = (language) => {
+		this.setState({ language });
+	};
+
+	render() {
+		return (
+			<div className="ui container">
+				<LanguageSelector onLanguageChange={this.onLanguageChange} />
+				<LanguangeContext.Provider value={this.state.language}>
+					<ColourContext.Provider value="green">
+						<UserCreate />
+					</ColourContext.Provider>
+				</LanguangeContext.Provider>
+			</div>
+		);
+	}
+}
 
 export default App;
